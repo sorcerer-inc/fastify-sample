@@ -8,3 +8,7 @@ npm i -D @types/node
 npm i -D typescript tsc-watch
 npm i -D jest ts-jest @types/jest
 ```
+
+```bash
+npm i mysql2
+```
