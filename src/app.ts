@@ -1,3 +1,4 @@
+require('dotenv').config();
 import Fastify, { FastifyInstance } from "fastify";
 import { routes } from "./routes";
 
