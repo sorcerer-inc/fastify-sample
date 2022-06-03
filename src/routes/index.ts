@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { UserController } from "../controllers/UserController";
 
 const userController = new UserController();
+import { fastify } from "../app";
 
 const routes = async (fastify: FastifyInstance, options: any, next: any) => {
   fastify.get("/", async (req, res) => {
