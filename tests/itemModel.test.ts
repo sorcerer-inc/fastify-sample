@@ -1,6 +1,8 @@
 require('dotenv').config(); //.envに変わったから最初に読み込みが必要
+import axios from "axios";
 import * as item from "../src/models/itemsModel";
 import {ItemsData} from "../src/interfaces/items";
+const API_URL = process.env.API_URL
 
 import {
   NotFoundError,
@@ -28,6 +30,16 @@ const edit_item_data: ItemsData = {
   'price': 450
 }
 
+test("API TEST", async () => {
+  try{
+    const result = await axios.get(`${API_URL}/items`);
+    console.log(result.data);
+  }catch (e) {
+    console.log("delete bad");
+    expect(e instanceof NotFoundError).toBeTruthy();
+  }
+})
+
 test("create", async () => {
   try{
     await item.create(result_a);
@@ -42,6 +54,7 @@ test("create", async () => {
 test("get Recode", async () => {
   const resultA = await item.getRecode(1002);
   console.log(resultA);
+  expect(resultA).toEqual([result_a]);
 
   try{
     await item.getRecode(1005);
