@@ -3,11 +3,14 @@
     <h1>{{ text }}</h1>
     <button @click="textChange">text change</button>
     <sample-component name="prop_name"></sample-component>
+    {{api_result}}
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import sampleComponent from "@/components/sampleComponent";
+const API_URL = process.env.VUE_APP_API_URL;
 export default {
   name: 'mainView',
   components: {
@@ -17,7 +20,8 @@ export default {
     return {
       text: "hello world",
       prop_update: "prop_update",
-      prop_name: ' prop_name'
+      prop_name: ' prop_name',
+      api_result: ''
     }
   },
   // created() {
@@ -25,6 +29,10 @@ export default {
   // mounted: function (){
   // },
   methods: {
+    async getApi() {
+      const result = await axios.get(`${API_URL}`);
+      this.api_result = result;
+    },
     textChange(){
       this.text = "good new world";
     }
