@@ -14,7 +14,10 @@ export class ItemsController {
       res.status(200);
       res.send(resData);
     }
-    catch (e) {}
+    catch (e) {
+      res.status(500);
+      res.send();
+    }
   }
 
   //１件作成

@@ -4,8 +4,13 @@ import {DBError, NotFoundError, ConflictError} from "../interfaces/my-error";
 
 //全件取得
 export async function getList(): Promise<ItemsData[]> {
-  const result = await ItemsModel.getList();
-  return result;
+  try {
+    const result = await ItemsModel.getList();
+    return result;
+  }
+  catch (e){
+    throw e;
+  }
 }
 
 //１件作成
