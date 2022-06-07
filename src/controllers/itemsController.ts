@@ -8,16 +8,10 @@ import * as typeGuard from "../helpers/typeGuard";
 export class ItemsController {
   //全件取得
   async getList(req: FastifyRequest, res :FastifyReply){
-    try {
-      const result = await ItemsService.getList();
-      const resData: ItemsData[] = result;
-      res.status(200);
-      res.send(resData);
-    }
-    catch (e) {
-      res.status(500);
-      res.send();
-    }
+    const result = await ItemsService.getList();
+    const resData: ItemsData[] = result;
+    res.status(200);
+    res.send(resData);
   }
 
   //１件作成
