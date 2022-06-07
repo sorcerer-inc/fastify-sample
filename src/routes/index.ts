@@ -3,6 +3,7 @@ import { UserController } from "../controllers/UserController";
 import {ItemsController} from "../controllers/itemsController";
 
 const userController = new UserController();
+import { fastify } from "../app";
 const itemsController = new ItemsController();
 
 const routes = async (fastify: FastifyInstance, options: any, next: any) => {
