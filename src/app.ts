@@ -15,7 +15,10 @@ const fastify: FastifyInstance = Fastify({
 });
 
 fastify.register(routes);
-console.log(process.env.NODE_ENV);
+if(process.env.NODE_ENV !== "production"){
+  fastify.register(require('@fastify/express'));
+  fastify.register(require('@fastify/cors'));
+}
 
 const start = async () => {
   try {
