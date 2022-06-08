@@ -37,5 +37,6 @@ fastify.log.debug("debug msg");
 ## fastify-swagger
 
 ```bash
-npm i @fastify/swagger --save
+npm i @fastify/swagger
+npm i -D @sinclair/typebox
 ```
