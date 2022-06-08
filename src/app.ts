@@ -13,6 +13,35 @@ const fastify: FastifyInstance = Fastify({
   },
 });
 
+// fastify.register(require("@fastify/swagger"), {
+//   routePrefix: "/doc",
+//   openapi: {
+//     info: {
+//       title: "Test swagger - openapi",
+//       description: "testing the fastify swagger api",
+//       version: "0.1.0",
+//     },
+//     servers: [
+//       {
+//         url: "http://localhost",
+//       },
+//     ],
+//     components: {
+//       securitySchemes: {
+//         apiKey: {
+//           type: "apiKey",
+//           name: "apiKey",
+//           in: "header",
+//         },
+//       },
+//     },
+//   },
+//   hideUntagged: true,
+//   exposeRoute: true,
+// });
+
+// set error handler
+
 fastify.register(routes);
 console.log(process.env.NODE_ENV);
 
