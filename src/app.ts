@@ -15,12 +15,13 @@ const fastify: FastifyInstance = Fastify({
 });
 
 fastify.register(routes);
-if(process.env.NODE_ENV == null){
-  fastify.register(require('@fastify/express'));
-  fastify.register(require('@fastify/cors'));
-}
 
 const start = async () => {
+  if(process.env.NODE_ENV == null){
+    await fastify.register(require('@fastify/express'));
+    fastify.use(require('cors')());
+  }
+
   try {
     await fastify.listen(3000);
   } catch (err) {
