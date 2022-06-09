@@ -19,7 +19,7 @@ const db_pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: Number(process.env.CONNECTION_LIMIT),
   queueLimit: Number(process.env.QUEUE_LIMIT),
-});
+}).promise();
 
 class DB {
   private static instance: DB;

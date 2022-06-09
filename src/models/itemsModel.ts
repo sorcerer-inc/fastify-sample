@@ -7,7 +7,6 @@ const ER_DUP_ENTRY = 1062; //mysqlのPRIMARY KEY重複時に出るエラーコ�
 //全件取得
 export async function getList(): Promise<ItemsData[]> {
   const result: [any, any] = await db_pool
-    .promise()
     .query("SELECT * FROM items;");
 
   const itemList : ItemsData[] = result[0].map((element: ItemsData) => {
@@ -26,7 +25,7 @@ export async function getList(): Promise<ItemsData[]> {
 export async function create(data: ItemsData): Promise<void> {
 
   try {
-    await db_pool.promise()
+    await db_pool
       .query(
         "INSERT INTO items (id, name, heal, price) values (?, ?, ?, ?)",
         [data.id, data.name, data.heal, data.price]
@@ -45,7 +44,6 @@ export async function create(data: ItemsData): Promise<void> {
 //１件取得
 export async function getRecode(id: number): Promise<ItemsData> {
   const result: [any, any] = await db_pool
-    .promise()
     .query("SELECT * FROM items WHERE id = ?", [id]);
 
   if(result[0].length == 0){
@@ -67,7 +65,6 @@ export async function getRecode(id: number): Promise<ItemsData> {
 //１件編集
 export async function update(data: ItemsData): Promise<void>{
   const result: [any, any] = await db_pool
-    .promise()
     .query(
       "UPDATE items SET name = ?, heal = ?, price = ?  WHERE id = ?",
       [data.name, data.heal, data.price, data.id]
@@ -81,7 +78,6 @@ export async function update(data: ItemsData): Promise<void>{
 //１件物理削除
 export async function dataDelete(id: number): Promise<void>{
   const result: [any, any] = await db_pool
-    .promise()
     .query(
       "DELETE FROM items WHERE id = ?", [id]
     );
