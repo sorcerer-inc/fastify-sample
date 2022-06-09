@@ -17,8 +17,8 @@ const db_pool = mysql.createPool({
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASS,
   waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+  connectionLimit: Number(process.env.CONNECTION_LIMIT),
+  queueLimit: Number(process.env.QUEUE_LIMIT),
 });
 
 class DB {
@@ -31,8 +31,8 @@ class DB {
       database: process.env.DB_DATABASE,
       password: process.env.DB_PASS,
       waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
+      connectionLimit: Number(process.env.CONNECTION_LIMIT),
+      queueLimit: Number(process.env.QUEUE_LIMIT),
     });
   }
   static getInstance() {
