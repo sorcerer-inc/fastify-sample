@@ -33,3 +33,10 @@ import { fastify } from "../app";
 fastify.log.info("info msg");
 fastify.log.debug("debug msg");
 ```
+
+## fastify-swagger
+
+```bash
+npm i @fastify/swagger
+npm i -D @sinclair/typebox
+```

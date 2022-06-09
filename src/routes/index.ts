@@ -1,18 +1,29 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifySchema } from "fastify";
+import { Static, Type } from "@sinclair/typebox";
+
 import { UserController } from "../controllers/UserController";
 import {ItemsController} from "../controllers/itemsController";
 
 const userController = new UserController();
-import { fastify } from "../app";
 const itemsController = new ItemsController();
 
 const routes = async (fastify: FastifyInstance, options: any, next: any) => {
+  fastify.setErrorHandler(function (error, request, reply) {
+    fastify.log.error(error.message);
+    reply.status(500).send();
+  });
+
   fastify.get("/", async (req, res) => {
+    throw new Error();
     res.header("Content-Type", "application/json").code(200);
     res.send({
       message: "hello world",
     });
   });
+
+  // const loginSchema: FastifySchema = {
+  //   description: "Get posts",
+  // };
 
   fastify.post("/login", userController.login);
 

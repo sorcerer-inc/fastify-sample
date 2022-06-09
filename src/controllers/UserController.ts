@@ -114,7 +114,7 @@ export class UserController {
       const id = parseInt(body.id);
       const password = body.password;
       const result = await loginSrv({ id, password });
-      console.log("login result: " + result);
+
       if (result) {
         res.code(200);
         res.send();
@@ -189,12 +189,4 @@ export class UserController {
       }
     }
   }
-
-  /**
-   * next(err)を投げるとapp.tsでエラーハンドリングできます。
-   * https://expressjs.com/ja/guide/error-handling.html
-   */
-  // errorResponse(req: Request, res: Response, next: NextFunction) {
-  //   next(new Error("エラー発生"));
-  // }
 }
