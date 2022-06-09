@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="my-3">
     <h2>{{text}}</h2>
     <p>{{name}}</p>
     <p>{{count}}</p>
-    <button @click="add">add</button>
-    <button @click="sub">sub</button>
+    <button class="button is-info is-small" @click="add">add</button>
+    <button class="button is-danger is-small" @click="sub">sub</button>
   </div>
 </template>
 
