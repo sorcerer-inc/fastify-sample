@@ -43,7 +43,6 @@ const fastify: FastifyInstance = Fastify({
 // set error handler
 
 fastify.register(routes);
-console.log(process.env.NODE_ENV);
 
 const start = async () => {
   try {

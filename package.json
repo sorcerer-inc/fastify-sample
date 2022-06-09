@@ -16,7 +16,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "tsc",
-    "dev": "rimraf dist && set NODE_ENV=development && tsc-watch --noClear --onSuccess \"node ./dist/app\" ",
+    "dev": "rimraf dist && tsc-watch --noClear --onSuccess \"node ./dist/app\" ",
     "start": "rimraf dist && tsc && cross-env NODE_ENV=production && node ./dist/app",
     "test": "jest"
   }

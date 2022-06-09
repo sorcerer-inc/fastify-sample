@@ -7,7 +7,7 @@ const userController = new UserController();
 
 const routes = async (fastify: FastifyInstance, options: any, next: any) => {
   fastify.setErrorHandler(function (error, request, reply) {
-    fastify.log.info(error.message);
+    fastify.log.error(error.message);
     reply.status(500).send();
   });
 
