@@ -14,7 +14,6 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
   });
 
   fastify.get("/", async (req, res) => {
-    throw new Error();
     res.header("Content-Type", "application/json").code(200);
     res.send({
       message: "hello world",
