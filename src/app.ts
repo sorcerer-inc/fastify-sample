@@ -1,6 +1,7 @@
 require('dotenv').config();
 import Fastify, { FastifyInstance } from "fastify";
 import { routes } from "./routes";
+import * as routerCheck from "./middleware/routerCheck"
 
 const fastify: FastifyInstance = Fastify({
   logger: {
@@ -20,6 +21,7 @@ const start = async () => {
   if(process.env.NODE_ENV == null){
     await fastify.register(require('@fastify/express'));
     fastify.use(require('cors')());
+    fastify.use(routerCheck.check);
   }
 
   try {
