@@ -1,7 +1,7 @@
 require('dotenv').config();
 import Fastify, { FastifyInstance } from "fastify";
 import { routes } from "./routes";
-import * as routerCheck from "./middleware/routerCheck"
+import * as routerCheck from "./middlewares/routerCheck"
 
 const fastify: FastifyInstance = Fastify({
   logger: {
