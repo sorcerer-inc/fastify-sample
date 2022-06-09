@@ -1,11 +1,27 @@
 <template>
   <div class="hello">
     <h1>{{ text }}</h1>
-    <button @click="textInsert">update</button>
-    <sample-component name="prop_name"></sample-component>
-    <button @click="get">Api get method</button>
-    <div>
-      {{result}}
+    <div class="columns">
+      <div class="column">
+        First column
+      </div>
+      <div class="column">
+        Second column
+      </div>
+      <div class="column">
+        <button class="button is-link" @click="textInsert">update</button>
+        <sample-component name="prop_name"></sample-component>
+        <button class="button is-primary" @click="get">Api get method</button>
+        <div>
+          {{result}}
+        </div>
+      </div>
+      <div class="column">
+        Fourth column
+      </div>
+      <div class="column">
+        Fifth column
+      </div>
     </div>
   </div>
 </template>
