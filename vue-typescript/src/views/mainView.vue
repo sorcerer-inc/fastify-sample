@@ -9,8 +9,8 @@
         Second column
       </div>
       <div class="column">
-        <button class="button is-link" @click="textInsert">update</button>
-        <sample-component name="prop_name"></sample-component>
+        <button class="button is-link" @click="textInsert">main update</button>
+        <sample-component :name="text"></sample-component>
         <button class="button is-primary" @click="get">Api get method</button>
         <div>
           {{result}}
