@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from "vue";
+import {defineComponent, provide} from "vue";
 import axios from "axios";
 import sampleComponent from '../components/sampleComponent.vue'
 const API_URL = process.env.VUE_APP_API_URL;
@@ -46,6 +46,10 @@ export default defineComponent({
       text: 'hello',
       result: []
     } as main
+  },
+  setup(){
+    //mainModal 孫コンポーネントへの継承
+    provide('location', 'North Pole');
   },
   created() {
   },

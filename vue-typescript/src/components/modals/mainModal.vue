@@ -8,6 +8,7 @@
       </header>
       <section class="modal-card-body">
         {{text}}
+        {{location}}
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success">Save changes</button>
@@ -18,13 +19,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent ({
   props: {
     isActive: Boolean,
     text: String,
   },
+  inject: ['location'],
   methods: {
     modalClose(){
       this.$emit('click-close');
