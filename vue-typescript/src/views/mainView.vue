@@ -17,7 +17,12 @@
         </div>
       </div>
       <div class="column">
-        Fourth column
+        Composition API
+        <div>
+          <div>{{ counterState.count }}</div>
+          <button class="button is-small mr-1" @click="add">+</button>
+          <button class="button is-small" @click="sub">-</button>
+        </div>
       </div>
       <div class="column">
         Fifth column
@@ -28,6 +33,7 @@
 
 <script lang="ts">
 import {defineComponent, provide} from "vue";
+import Counter from "../utils/counter";
 import axios from "axios";
 import sampleComponent from '../components/sampleComponent.vue'
 const API_URL = process.env.VUE_APP_API_URL;
@@ -50,6 +56,12 @@ export default defineComponent({
   setup(){
     //mainModal 孫コンポーネントへの継承
     provide('location', 'North Pole');
+    const {counterState, add, sub} = Counter();
+    return{
+      counterState,
+      add,
+      sub,
+    }
   },
   created() {
   },
