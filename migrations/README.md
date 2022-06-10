@@ -21,17 +21,17 @@ DATABASE_URL=<driver>://<user>:<password>@<address>:<port>/<database>
 
 ### DBを初期化、最新にする
 ```
-node .\node_modules\db-migrate\bin\db-migrate up
+npx db-migrate up
 ```
 
 ### DBを消す
 ```
-node .\node_modules\db-migrate\bin\db-migrate down
+npx db-migrate down
 ```
 
 ### DBを全部消す(最初からやり直したい時など)
 ```
-node .\node_modules\db-migrate\bin\db-migrate reset
+npx db-migrate reset
 ```
 
 ### マイグレーションを作成する

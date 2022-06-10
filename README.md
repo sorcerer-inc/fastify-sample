@@ -25,7 +25,7 @@ $ docker-compose up -d
 # サーバーの起動
 typescript のコンパイルを fastify の起動をします。  
 起動中はソースコードを修正したら即座に反映されます。
-```angular2html
+```
 npm run dev
 ```
 
