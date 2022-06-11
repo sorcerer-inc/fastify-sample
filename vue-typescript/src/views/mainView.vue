@@ -9,15 +9,20 @@
         Second column
       </div>
       <div class="column">
-        <button class="button is-link" @click="textInsert">update</button>
-        <sample-component name="prop_name"></sample-component>
+        <button class="button is-link" @click="textInsert">main update</button>
+        <sample-component :name="text"></sample-component>
         <button class="button is-primary" @click="get">Api get method</button>
         <div>
           {{result}}
         </div>
       </div>
       <div class="column">
-        Fourth column
+        Composition API
+        <div>
+          <div>{{ counterState.count }}</div>
+          <button class="button is-small mr-1" @click="add">+</button>
+          <button class="button is-small" @click="sub">-</button>
+        </div>
       </div>
       <div class="column">
         Fifth column
@@ -27,7 +32,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from "vue";
+import {defineComponent, provide} from "vue";
+import Counter from "../utils/counter";
 import axios from "axios";
 import sampleComponent from '../components/sampleComponent.vue'
 const API_URL = process.env.VUE_APP_API_URL;
@@ -46,6 +52,16 @@ export default defineComponent({
       text: 'hello',
       result: []
     } as main
+  },
+  setup(){
+    //mainModal 孫コンポーネントへの継承
+    provide('location', 'North Pole');
+    const {counterState, add, sub} = Counter();
+    return{
+      counterState,
+      add,
+      sub,
+    }
   },
   created() {
   },
