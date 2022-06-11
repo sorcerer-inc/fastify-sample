@@ -1,3 +1,4 @@
+require('dotenv').config(); //.envに変わったから最初に読み込みが必要
 import {
   getAllUsersSrv,
   createUserSrv,
