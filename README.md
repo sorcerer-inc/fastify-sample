@@ -15,8 +15,8 @@ npm install
 $ cp .env.example .env
 ```
 
-## Mysqlの起動
-Dockerを使ってDBを起動します。
+## Mysqlとredisの起動
+Dockerを使ってDBとredisを起動します。
 ```bash
 $ cd docker
 $ docker-compose up -d
