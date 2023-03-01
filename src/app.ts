@@ -1,7 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 import Fastify, { FastifyInstance } from "fastify";
 import { routes } from "./routes";
-import * as routerCheck from "./middlewares/routerCheck"
+import * as routerCheck from "./middlewares/routerCheck";
 
 const fastify: FastifyInstance = Fastify({
   logger: {
@@ -18,14 +18,20 @@ const fastify: FastifyInstance = Fastify({
 fastify.register(routes);
 
 const start = async () => {
-  if(process.env.NODE_ENV == null){
-    await fastify.register(require('@fastify/express'));
-    fastify.use(require('cors')());
+  if (process.env.NODE_ENV == null) {
+    await fastify.register(require("@fastify/express"));
+    fastify.use(require("cors")());
     fastify.use(routerCheck.check);
   }
 
   try {
-    await fastify.listen(3000);
+    fastify.listen({ port: 3000 }, (err, address) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("fastify listening on " + address);
+      }
+    });
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
