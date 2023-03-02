@@ -4,6 +4,7 @@ class AuthError extends Error {}
 class NotEnoughError extends Error {}
 class LimitExceededError extends Error {}
 class ConflictError extends Error {}
+class AlreadyExistsError extends Error {}
 
 export {
   DBError,
@@ -11,5 +12,6 @@ export {
   AuthError,
   NotEnoughError,
   LimitExceededError,
-  ConflictError
+  ConflictError,
+  AlreadyExistsError
 };
