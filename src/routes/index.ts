@@ -2,7 +2,8 @@ import { FastifyInstance, FastifySchema } from "fastify";
 import { Static, Type } from "@sinclair/typebox";
 
 import { UserController } from "../controllers/UserController";
-import {ItemsController} from "../controllers/itemsController";
+import { ItemsController } from "../controllers/itemsController";
+import redisClient from "../helpers/redisHelper";
 
 const userController = new UserController();
 const itemsController = new ItemsController();
@@ -17,6 +18,15 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     res.header("Content-Type", "application/json").code(200);
     res.send({
       message: "hello world",
+    });
+  });
+
+  fastify.get("/redis", async (req, res) => {
+    res.header("Content-Type", "application/json").code(200);
+    await redisClient.setEx("key", 10, "value2");
+    const value = await redisClient.get("key");
+    res.send({
+      message: value,
     });
   });
 
