@@ -27,7 +27,31 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     });
   });
 
-  fastify.post("/login", loginController.login);
+  //fastify.post("/login", loginController.login);
+  fastify.route({
+    method: "POST",
+    url: "/login",
+    schema: {
+      body: {
+        type: "object",
+        properties: {
+          username: { type: "string"},
+          password: { type: "string"}
+        },
+        required: ["username", "password"]
+      },
+      response: {
+        200: {
+          type: "object",
+          properties: {
+            sessionId: { type: "string"}
+          }
+        }
+      }
+    },
+    handler: loginController.login
+  })
+
   fastify.post("/register", loginController.register);
   fastify.post("/logout", { preHandler: [authMiddleware] }, loginController.logout);
 
