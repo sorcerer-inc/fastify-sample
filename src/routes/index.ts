@@ -5,6 +5,7 @@ import { ItemsController } from "../controllers/itemsController";
 import { LoginController } from "../controllers/loginController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { AuthError } from "../interfaces/my-error";
+import redisClient from "../helpers/redisHelper";
 
 const userController = new UserController();
 const itemsController = new ItemsController();
@@ -51,6 +52,18 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     },
     handler: loginController.login
   })
+  fastify.get("/redis", async (req, res) => {
+    res.header("Content-Type", "application/json").code(200);
+    await redisClient.setEx("key", 10, "value2");
+    const value = await redisClient.get("key");
+    res.send({
+      message: value,
+    });
+  });
+
+  // const loginSchema: FastifySchema = {
+  //   description: "Get posts",
+  // };
 
   fastify.post("/register", loginController.register);
   fastify.post("/logout", { preHandler: [authMiddleware] }, loginController.logout);
