@@ -16,12 +16,7 @@ const fastify: FastifyInstance = Fastify({
 
 fastify.register(require("./plugins/mysqlPlugin"));
 
-(async () => {
-  if (process.env.NODE_ENV == null) {
-    await fastify.register(require("@fastify/express"));
-    fastify.use(require("cors")());
-  }
-})();
+fastify.register(require("@fastify/cors"));
 
 fastify.register(routes);
 

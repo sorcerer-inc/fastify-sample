@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: API
+  description: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+
+components:
+  parameters:
+    SessionId:
+      name: sessionId
+      in: header
+      description: The sessionId of the user
+      required: true
+      schema:
+        type: string
+
+paths:
+  /login:
+    post:
+      summary: User login API
+      description: Login with username and password to obtain a sessionId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user
+                password:
+                  type: string
+                  description: The password of the user
+              required:
+                - username
+                - password
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                    description: The sessionId of the user
+        "500":
+          description: Internal server error
+  /logout:
+    post:
+      summary: User logout API
+      description: Logout with sessionId to destroy the session
+      parameters:
+        - $ref: "#/components/parameters/SessionId"
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  /register:
+    post:
+      summary: User register API
+      description: Register with username and password to create a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the new user
+                password:
+                  type: string
+                  description: The password of the new user
+              required:
+                - username
+                - password
+      responses:
+        "200":
+          description: OK
+        "409":
+          description: Conflict
+        "500":
+          description: Internal server error
