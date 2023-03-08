@@ -28,6 +28,17 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     });
   });
 
+  fastify.get("/plugin-test", async (req, res) => {
+    try {
+      const [rows] = await (fastify as any).mysql.query("SELECT * FROM `login`");
+      res.send({
+        message: rows,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   //fastify.post("/login", loginController.login);
   fastify.route({
     method: "POST",
