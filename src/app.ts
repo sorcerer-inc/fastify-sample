@@ -14,7 +14,7 @@ const fastify: FastifyInstance = Fastify({
   },
 });
 
-fastify.register(require("./plugin/mysqlPlugin"));
+fastify.register(require("./plugins/mysqlPlugin"));
 
 (async () => {
   if (process.env.NODE_ENV == null) {
