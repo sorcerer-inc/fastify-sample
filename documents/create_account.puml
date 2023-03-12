@@ -43,24 +43,27 @@ alt プラットフォームサインインの場合
   deactivate user
 end
 
-' TODO ゲストもcognitoで処理できるか確認中
-'alt ゲストサインアップの場合
-'  user -> app : ニックネーム
-'  activate user
-'    activate app
-'    app -> server: アカウント作成
-'      activate server
-'      server -> server: ID/PASS作成
-'      server -> db: insert user
-'        activate db
-'        db --> server
-'        deactivate db
-'      server --> app: ID/PASS
-'      deactivate server
-'      app -> app: ID/PASS保存
-'    app --> user
-'    deactivate app
-'  deactivate user
-'end
+alt ゲストサインアップの場合
+  user -> app : ニックネーム
+  activate user
+    activate app
+    app -> server: アカウント作成
+      activate server
+      server -> server: ID/PASS作成
+      server -> db: insert user
+        activate db
+        db --> server
+        deactivate db
+      server -> auth: ユーザープールにID追加
+      activate auth
+        auth --> server: ok
+      deactivate auth
+      server --> app: ID/PASS
+      deactivate server
+      app -> app: ID/PASS保存
+    app --> user
+    deactivate app
+  deactivate user
+end
 
 @enduml
