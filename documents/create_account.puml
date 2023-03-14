@@ -1,0 +1,69 @@
+@startuml
+title アカウント作成
+actor ユーザー as user
+participant アプリ as app
+participant サーバー as server
+database MySQL as db
+participant "認証サービス(cognito)" as auth
+database Redis as redis
+
+alt プラットフォームサインインの場合
+  user -> app: プラットフォームサインイン
+  activate user
+    activate app
+    app -> auth
+    activate auth
+    auth --> app: JWTトークン
+    deactivate auth
+    app -> server: JWTトークン
+      activate server
+      server -> redis: キャッシュ済みのjwks.json(公開鍵)を取得
+      activate redis
+        redis --> server: jwks.json
+      deactivate redis
+      alt jwksとJWTトークンのkidが不一致の場合
+        server -> auth: jwks.json(公開鍵)を取得
+        activate auth
+          auth --> server: jwks.json
+        deactivate auth
+        server -> redis: jwks.jsonを更新
+        activate redis
+          redis --> server: ok
+        deactivate redis
+      end
+      server -> server: jwksを使ってJWTトークン検証
+      server -> db: insert user
+        activate db
+        db --> server
+        deactivate db
+      server --> app: ok
+      deactivate server
+    app --> user
+    deactivate app
+  deactivate user
+end
+
+alt ゲストサインアップの場合
+  user -> app : ニックネーム
+  activate user
+    activate app
+    app -> server: アカウント作成
+      activate server
+      server -> server: ID/PASS作成
+      server -> db: insert user
+        activate db
+        db --> server
+        deactivate db
+      server -> auth: ユーザープールにID追加
+      activate auth
+        auth --> server: ok
+      deactivate auth
+      server --> app: ID/PASS
+      deactivate server
+      app -> app: ID/PASS保存
+    app --> user
+    deactivate app
+  deactivate user
+end
+
+@enduml
