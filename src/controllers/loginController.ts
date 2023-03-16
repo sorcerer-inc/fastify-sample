@@ -1,24 +1,20 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { login, logout, register } from "../services/loginService";
 
+import jwt from "jsonwebtoken";
+import jwkToPem from "jwk-to-pem";
+import axios from "axios";
+import { registerGoogle } from "../services/playerService";
+
 export class LoginController {
   async login(req: FastifyRequest, res: FastifyReply) {
-    const body = req.body as any;
-
-    if (!body.username || !body.password) {
-      res.status(400);
-      res.send({ message: "Invalid body." });
-      return;
-    }
-
     try {
-      const result = await login(body.username, body.password);
       res.status(200);
-      res.send({ sessionId: result });
+      res.send("success");
     } catch (e) {}
   }
 
-	async logout(req: FastifyRequest, res: FastifyReply) {
+  async logout(req: FastifyRequest, res: FastifyReply) {
     const body = req.body as any;
 
     if (!body.uid || !body.sessionId) {
@@ -37,17 +33,22 @@ export class LoginController {
   async register(req: FastifyRequest, res: FastifyReply) {
     const body = req.body as any;
 
-    if (!body.username || !body.password) {
+    if (!body.name) {
       res.status(400);
       res.send({ message: "Invalid body." });
       return;
     }
+
     try {
-			console.log(body.username + ": " + body.password);
-      const result = await register(body.username, body.password);
-			console.log("result ", result);
+      const cognito_id = (req as any).data.sub;
+      console.log(cognito_id);
+      const result = await registerGoogle(body.name, cognito_id, cognito_id);
+      console.log(result);
+
       res.status(200);
-      res.send({ result });
-    } catch (e) {}
+      res.send("success");
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

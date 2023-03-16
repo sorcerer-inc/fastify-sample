@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
-
-import { UserController } from "../controllers/UserController";
+import { UserController } from "../controllers/userController";
 import { ItemsController } from "../controllers/itemsController";
 import { LoginController } from "../controllers/loginController";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { sessionMiddleware } from "../middlewares/sessionMiddleware";
 import { AuthError } from "../interfaces/my-error";
 import redisClient from "../helpers/redisHelper";
+import { jwtMiddleware } from "../middlewares/jwtMiddleware";
 
 const userController = new UserController();
 const itemsController = new ItemsController();
@@ -13,8 +13,8 @@ const loginController = new LoginController();
 
 const routes = async (fastify: FastifyInstance, options: any, next: any) => {
   fastify.setErrorHandler(function (error, request, reply) {
-    if(error instanceof AuthError) {
-      reply.status(401).send({message: "Unauthorized"});
+    if (error instanceof AuthError) {
+      reply.status(401).send({ message: "Unauthorized" });
     }
 
     fastify.log.error(error.message);
@@ -39,30 +39,30 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     }
   });
 
-  //fastify.post("/login", loginController.login);
-  fastify.route({
-    method: "POST",
-    url: "/login",
-    schema: {
-      body: {
-        type: "object",
-        properties: {
-          username: { type: "string"},
-          password: { type: "string"}
-        },
-        required: ["username", "password"]
-      },
-      response: {
-        200: {
-          type: "object",
-          properties: {
-            sessionId: { type: "string"}
-          }
-        }
-      }
-    },
-    handler: loginController.login
-  })
+  fastify.post("/login", { preHandler: [jwtMiddleware] }, loginController.login);
+  // fastify.route({
+  //   method: "POST",
+  //   url: "/login",
+  //   schema: {
+  //     body: {
+  //       type: "object",
+  //       properties: {
+  //         username: { type: "string"},
+  //         password: { type: "string"}
+  //       },
+  //       required: ["username", "password"]
+  //     },
+  //     response: {
+  //       200: {
+  //         type: "object",
+  //         properties: {
+  //           sessionId: { type: "string"}
+  //         }
+  //       }
+  //     }
+  //   },
+  //   handler: loginController.login
+  // })
   fastify.get("/redis", async (req, res) => {
     res.header("Content-Type", "application/json").code(200);
     await redisClient.setEx("key", 10, "value2");
@@ -72,13 +72,8 @@ const routes = async (fastify: FastifyInstance, options: any, next: any) => {
     });
   });
 
-  // const loginSchema: FastifySchema = {
-  //   description: "Get posts",
-  // };
-
-  fastify.post("/register", loginController.register);
-  fastify.post("/logout", { preHandler: [authMiddleware] }, loginController.logout);
-
+  fastify.post("/register", { preHandler: [jwtMiddleware] }, loginController.register);
+  fastify.post("/logout", { preHandler: [sessionMiddleware] }, loginController.logout);
 
   // fastify.get("/users", userController.getAllUsers);
   // fastify.post("/users", userController.createUser);

@@ -1,7 +1,7 @@
 import redisClient from "../helpers/redisHelper";
 import { AuthError } from "../interfaces/my-error";
 
-export async function authMiddleware(req: any, res: any, next: any) {
+export async function sessionMiddleware(req: any, res: any, next: any) {
   const body = req.body as any;
 
   if (body.sessionId && body.uid) {

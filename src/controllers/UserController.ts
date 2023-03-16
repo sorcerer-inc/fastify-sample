@@ -8,15 +8,9 @@ import {
   loginSrv,
   buyItemSrv,
   useItemSrv,
-} from "../services/UserService";
+} from "../services/userService";
 
-import {
-  DBError,
-  NotFoundError,
-  AuthError,
-  NotEnoughError,
-  LimitExceededError,
-} from "../interfaces/my-error";
+import { DBError, NotFoundError, AuthError, NotEnoughError, LimitExceededError } from "../interfaces/my-error";
 
 // const log = require("log4js").getLogger("index");
 

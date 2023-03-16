@@ -1,21 +1,10 @@
-import {
-  getAllUsers,
-  createUser,
-  getUser,
-  updateUser,
-} from "../models/UserModel";
+import { getAllUsers, createUser, getUser, updateUser } from "../models/userModel";
 
 import { getUserItem, updateUserItem } from "../models/usersItemsModel";
 
-import {
-  DBError,
-  NotFoundError,
-  AuthError,
-  NotEnoughError,
-  LimitExceededError,
-} from "../interfaces/my-error";
+import { DBError, NotFoundError, AuthError, NotEnoughError, LimitExceededError } from "../interfaces/my-error";
 
-import { User, UserLogin } from "../interfaces/User";
+import { User, UserLogin } from "../interfaces/user";
 import { UserItemInput, UserItemOutput } from "../interfaces/user-item";
 
 const MAX_ITEMS_NUM = 20;
@@ -141,13 +130,5 @@ const useItemSrv = async (data: UserItemInput) => {
   }
 };
 
-export {
-  getAllUsersSrv,
-  createUserSrv,
-  getUserSrv,
-  updateUserSrv,
-  loginSrv,
-  buyItemSrv,
-  useItemSrv,
-};
+export { getAllUsersSrv, createUserSrv, getUserSrv, updateUserSrv, loginSrv, buyItemSrv, useItemSrv };
 // curl -X "GET" "http://localhost:3000/users" -H "accept: application/json"

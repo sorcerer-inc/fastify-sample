@@ -15,14 +15,12 @@ const fastify: FastifyInstance = Fastify({
 });
 
 fastify.register(require("./plugins/mysqlPlugin"));
-
 fastify.register(require("@fastify/cors"));
-
 fastify.register(routes);
 
 const start = async () => {
   try {
-    fastify.listen({ port: 3000 }, (err, address) => {
+    fastify.listen({ port: 3001 }, (err, address) => {
       if (err) {
         console.log(err);
       } else {
