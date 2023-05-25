@@ -1,0 +1,23 @@
+@startuml google_login
+title Googleアカウントでログイン
+
+actor ユーザー as user
+participant アプリ as app
+participant サーバー as server
+participant Google as google
+
+autonumber
+user->app: Googleログインを選択
+app->server: ログインrequestを送信
+server->google: ログインrequestを送信
+google-->server: authorizationページ
+server-->app: authorizationページ 
+user->app: 入力
+app->google: googleアカウントとパスワード
+google-->server: access token
+server->google: ユーザー情報request
+google-->server: ユーザー情報
+server->server: dbに保存した情報を確認
+server-->app: ログイン成功、失敗
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml logout
+title ログアウト
+
+actor ユーザー as user
+participant アプリ as app
+participant サーバー as server
+
+autonumber
+user->app: ログアウトを選択
+app->server: ログアウトrequest
+server->server: session,tokenを削除
+server-->app: response
+
+@enduml

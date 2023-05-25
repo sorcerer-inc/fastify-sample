@@ -1,7 +1,6 @@
 require("dotenv").config();
 import Fastify, { FastifyInstance } from "fastify";
 import { routes } from "./routes";
-import * as routerCheck from "./middlewares/routerCheck";
 
 const fastify: FastifyInstance = Fastify({
   logger: {
@@ -15,17 +14,13 @@ const fastify: FastifyInstance = Fastify({
   },
 });
 
+fastify.register(require("./plugins/mysqlPlugin"));
+fastify.register(require("@fastify/cors"));
 fastify.register(routes);
 
 const start = async () => {
-  if (process.env.NODE_ENV == null) {
-    await fastify.register(require("@fastify/express"));
-    fastify.use(require("cors")());
-    fastify.use(routerCheck.check);
-  }
-
   try {
-    fastify.listen({ port: 3000 }, (err, address) => {
+    fastify.listen({ port: 3001 }, (err, address) => {
       if (err) {
         console.log(err);
       } else {
